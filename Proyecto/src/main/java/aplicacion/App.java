@@ -11,6 +11,7 @@ public class App {
     {
        
     	 Tablas t = new Tablas();
+    	 
     	 t.crearTablas();
     	
     	 //SpringApplication.run(App.class, args);
