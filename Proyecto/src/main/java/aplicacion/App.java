@@ -14,7 +14,7 @@ public class App {
     	 
     	 t.crearTablas();
     	
-    	 //SpringApplication.run(App.class, args);
+    	 SpringApplication.run(App.class, args);
     	  
     	
     }

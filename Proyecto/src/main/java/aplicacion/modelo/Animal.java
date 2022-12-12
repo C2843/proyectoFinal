@@ -4,6 +4,8 @@ package aplicacion.modelo;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -15,6 +17,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name="animales")
 public class Animal {
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="id")
+	private Integer id;
 	@Column(name="crotal")
 	private String crotal;
 	@Column(name="tipoAnimal")
@@ -35,6 +40,7 @@ public class Animal {
 	@JsonIgnore
 	private Explotacion explotacion;
 	
+	
 	public Animal(String crotal, String tipoAnimal, String raza, String fNacimiento, String genero) {
 		super();
 		this.crotal = crotal;
@@ -43,6 +49,7 @@ public class Animal {
 		this.fNacimiento = fNacimiento;
 		this.genero = genero;
 	}
+
 	public Explotacion getExplotacion() {
 		return explotacion;
 	}
@@ -57,6 +64,14 @@ public class Animal {
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+	
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public Animal() {

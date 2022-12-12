@@ -25,10 +25,10 @@ public void crearTablas() {
         AnimalDAO animalDao = new AnimalDAO();
         ExplotacionDAO explotacionDao=new ExplotacionDAO();
         
-        usuarioDao.insertarUsuarioJPA(u1);
-        explotacionDao.insertarExplotacionJPA(e1);
-        animalDao.insertarAnimalJPA(a1);
-        animalDao.insertarAnimalJPA(a2);
+        //usuarioDao.insertarUsuarioJPA(u1);
+        //explotacionDao.insertarExplotacionJPA(e1);
+        //animalDao.insertarAnimalJPA(a1);
+        //animalDao.insertarAnimalJPA(a2);
         
 	}
 }

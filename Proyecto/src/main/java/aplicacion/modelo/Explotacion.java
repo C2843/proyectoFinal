@@ -7,6 +7,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -19,6 +21,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name="explotaciones")
 public class Explotacion {
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="id")
+	private Integer id;
 	@Column(name="cea")
 	private String cea;
 	@Column(name="animal")
@@ -26,13 +31,22 @@ public class Explotacion {
 	@Column(name="nAnimales")
 	private Integer nAnimales;
 	
-	@OneToMany(cascade= {CascadeType.ALL}, mappedBy="explotacion", fetch = FetchType.EAGER)
+	@OneToMany(cascade= {CascadeType.MERGE}, mappedBy="explotacion", fetch = FetchType.EAGER)
 	private Set<Animal> animales;
 	
 	@ManyToOne // (cascade = { CascadeType.ALL },optional = true)
 	@JoinColumn(name = "dni_usuario", nullable = true)
 	@JsonIgnore
 	private Usuario usuario;
+	
+	
+	
+	public Explotacion(String cea, Animal animal, Integer nAnimales) {
+		super();
+		this.cea = cea;
+		this.animal = animal;
+		this.nAnimales = nAnimales;
+	}
 	public Explotacion(String cea, Integer nAnimales) {
 		super();
 		this.cea = cea;
@@ -61,6 +75,12 @@ public class Explotacion {
 		this.animales = animales;
 	}
 	
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
 	public String getCea() {
 		return cea;
 	}
