@@ -44,16 +44,6 @@ public class Usuario {
 		animales = new HashSet<Animal>();
 		explotaciones = new HashSet<Explotacion>();
 	}
-	public Usuario(String nombre) {
-		this.nombre = nombre;
-		animales = new HashSet<Animal>();
-		explotaciones = new HashSet<Explotacion>();
-	}
-	public Usuario() {
-		animales = new HashSet<Animal>();
-		explotaciones = new HashSet<Explotacion>();
-	}
-	
 	public String getNombre() {
 		return nombre;
 	}
@@ -61,7 +51,6 @@ public class Usuario {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	
 	
 	public Integer getId() {
 		return id;

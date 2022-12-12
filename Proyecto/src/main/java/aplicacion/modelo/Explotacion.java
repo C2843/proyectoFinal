@@ -26,8 +26,6 @@ public class Explotacion {
 	private Integer id;
 	@Column(name="cea")
 	private String cea;
-	@Column(name="animal")
-	private Animal animal;
 	@Column(name="nAnimales")
 	private Integer nAnimales;
 	
@@ -35,30 +33,18 @@ public class Explotacion {
 	private Set<Animal> animales;
 	
 	@ManyToOne // (cascade = { CascadeType.ALL },optional = true)
-	@JoinColumn(name = "dni_usuario", nullable = true)
+	@JoinColumn(name = "id_usuario", nullable = true)
 	@JsonIgnore
 	private Usuario usuario;
 	
-	
-	
-	public Explotacion(String cea, Animal animal, Integer nAnimales) {
-		super();
-		this.cea = cea;
-		this.animal = animal;
-		this.nAnimales = nAnimales;
-	}
 	public Explotacion(String cea, Integer nAnimales) {
 		super();
 		this.cea = cea;
 		this.nAnimales = nAnimales;
 		animales = new HashSet<Animal>();
 	}
-	public Explotacion(String cea) {
-		this.cea = cea;
-		animales = new HashSet<Animal>();
-	}
-	public Explotacion() {
-		animales = new HashSet<Animal>();
+	public Explotacion(Usuario u) {
+		usuario=u;
 	}
 	public Usuario getUsuario() {
 		return usuario;
@@ -86,12 +72,6 @@ public class Explotacion {
 	}
 	public void setCea(String cea) {
 		this.cea = cea;
-	}
-	public Animal getAnimal() {
-		return animal;
-	}
-	public void setAnimal(Animal animal) {
-		this.animal = animal;
 	}
 	public Integer getnAnimales() {
 		return nAnimales;
