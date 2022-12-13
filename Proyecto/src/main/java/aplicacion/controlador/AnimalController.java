@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import aplicacion.modelo.Animal;
 import aplicacion.persistencia.AnimalDAO;
 
 
@@ -22,10 +23,10 @@ public class AnimalController {
 	@GetMapping(value={"","/"})
 	String homealumnos(Model model) {
 		//Salir a buscar a la BBDD
-		ArrayList<Alumno> misAlumnos=alumnoDAO.listarAlumnosJPA();
-		model.addAttribute("listaAlumnos", misAlumnos);
-		model.addAttribute("alumnoaEditar", new Alumno());
-		model.addAttribute("alumnoNuevo", new Alumno());
+		ArrayList<Animal> misAnimales=animalDAO.listarAnimalJPA();
+		model.addAttribute("listaAnimales", misAnimales);
+		model.addAttribute("animalaEditar", new Animal());
+		model.addAttribute("animalNuevo", new Animal());
 		return "alumnos";
 	}
 	@PostMapping("/edit/{id}")

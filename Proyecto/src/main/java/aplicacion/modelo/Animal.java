@@ -39,7 +39,8 @@ public class Animal {
 	@JoinColumn(name = "id_explotacion", nullable = true)
 	@JsonIgnore
 	private Explotacion explotacion;
-	
+	public Animal() {
+	}
 	
 	public Animal(String crotal, String tipoAnimal, String raza, String fNacimiento, String genero) {
 		super();
