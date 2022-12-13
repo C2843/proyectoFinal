@@ -2,6 +2,7 @@ package aplicacion.controlador;
 
 import java.util.ArrayList;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -11,36 +12,46 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import aplicacion.modelo.Alumno;
 import aplicacion.modelo.Animal;
+import aplicacion.modelo.Bocadillo;
+import aplicacion.modelo.Pedido;
 import aplicacion.persistencia.AnimalDAO;
+import aplicacion.persistencia.AnimalRepo;
+import aplicacion.persistencia.PedidoRepo;
 
 
 @RequestMapping("/animales")
 @Controller
 public class AnimalController {
+	@Autowired
+	private AnimalRepo animalRepo;
 	
-	AnimalDAO animalDAO=new AnimalDAO();
-	@GetMapping(value={"","/"})
-	String homealumnos(Model model) {
-		//Salir a buscar a la BBDD
-		ArrayList<Animal> misAnimales=animalDAO.listarAnimalJPA();
-		model.addAttribute("listaAnimales", misAnimales);
-		model.addAttribute("animalaEditar", new Animal());
-		model.addAttribute("animalNuevo", new Animal());
-		return "alumnos";
+	@GetMapping(value = { "", "/" })
+	String animales(Model model) {
+		 	
+		ArrayList<Animal> misAnimales=(ArrayList<Animal>) animalRepo.findAll();
+       
+        model.addAttribute("listaAnimales", misAnimales);
+		model.addAttribute("alumnoNuevo", new Animal());
+		
+
+		return "animales";
 	}
-	@PostMapping("/edit/{id}")
-	public String editarAlumno(@PathVariable Integer id, @ModelAttribute("alumnoaEditar") Alumno alumnoEditado, BindingResult bidingresult) {
-		Alumno alumnoaEditar=alumnoDAO.buscarIDJPA(id);
-		alumnoaEditar.setNombre(alumnoEditado.getNombre());
-		alumnoDAO.editarAlumnoJPA(alumnoaEditar);
-		return "redirect:/alumnos";
+	@PostMapping("/edit/{crotal}")
+	public String editarAnimal(@PathVariable String crotal, @ModelAttribute("animalaEditar") Animal animalEditado, BindingResult bidingresult) {
+		Animal animalaEditar=animalRepo.findByCrotal(crotal).get();
+		animalaEditar.setCrotal(animalEditado.getCrotal());
+		animalRepo.save(animalaEditar);
+		return "redirect:/animales";
 	}
-	@GetMapping({"/{id}"})
-	String idAlumno(Model model, @PathVariable Integer id) {
-		Alumno alumnoMostrar=alumnoDAO.buscarIDJPA(id);
-		model.addAttribute("alumnoMostrar", alumnoMostrar);
-		return "alumno";
+	@GetMapping({ "/{crotal}" })
+	String crotalAnimal(Model model, @PathVariable String crotal) {
+		ArrayList<Animal> misAnimales=(ArrayList<Animal>) animalRepo.findAll();
+        model.addAttribute("listaAnimales", misAnimales);
+		Animal animalMostrar = animalRepo.findByCrotal(crotal).get();
+		model.addAttribute("animalMostrar", animalMostrar);
+		return "animal";
 	}
 	@GetMapping({"/delete/{id}"})
 	String deleteAlumno(Model model, @PathVariable Integer id) {
