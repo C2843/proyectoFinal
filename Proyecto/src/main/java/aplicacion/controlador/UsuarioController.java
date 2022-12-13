@@ -63,13 +63,13 @@ public class UsuarioController {
 		return "usuario";
 	}
 
-	@PostMapping("/edit/{cea}")
-	public String editarExplotacion(@PathVariable String cea,
-			@ModelAttribute("explotacionaEditar") Explotacion explotacionEditada, BindingResult bidingresult) {
-		Explotacion explotacionaEditar = explotacionRepo.findByCea(cea).get();
-		explotacionaEditar.setCea(explotacionEditada.getCea());
-		explotacionRepo.save(explotacionaEditar);
-		return "redirect:/explotaciones";
+	@PostMapping("/edit/{dni}")
+	public String editarUsuario(@PathVariable String dni,
+			@ModelAttribute("usuarioaEditar") Usuario usuarioEditado, BindingResult bidingresult) {
+		Usuario usuarioaEditar = usuarioRepo.findByDni(dni).get();
+		usuarioaEditar.setDni(usuarioEditado.getDni());
+		usuarioRepo.save(usuarioaEditar);
+		return "redirect:/usuarios";
 	}
 
 	@GetMapping({ "/delete/{cea}" })
