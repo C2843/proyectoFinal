@@ -18,7 +18,7 @@ import aplicacion.modelo.Bocadillo;
 import aplicacion.modelo.Pedido;
 import aplicacion.persistencia.AnimalDAO;
 import aplicacion.persistencia.AnimalRepo;
-import aplicacion.persistencia.PedidoRepo;
+
 
 
 @RequestMapping("/animales")
@@ -34,8 +34,6 @@ public class AnimalController {
        
         model.addAttribute("listaAnimales", misAnimales);
 		model.addAttribute("alumnoNuevo", new Animal());
-		
-
 		return "animales";
 	}
 	@PostMapping("/edit/{crotal}")
@@ -53,14 +51,15 @@ public class AnimalController {
 		model.addAttribute("animalMostrar", animalMostrar);
 		return "animal";
 	}
-	@GetMapping({"/delete/{id}"})
-	String deleteAlumno(Model model, @PathVariable Integer id) {
-		Alumno alumnoaEliminar=alumnoDAO.buscarIDJPA(id);
-		alumnoDAO.eliminarAlumnoJPA(alumnoaEliminar);
-		return "redirect:/alumnos";
+	@GetMapping({ "/delete/{crotal}" })
+	String deleteAnimal(Model model, @PathVariable String crotal) {
+		Animal animalaBorrar=animalRepo.findByCrotal(crotal).get();
+		animalRepo.delete(animalaBorrar);
+		return "redirect:/animales";
+
 	}
 	@PostMapping("/add")
-	public String addAlumno(@ModelAttribute("alumnoNuevo") Alumno alumnoNew, BindingResult bidingresult) {
+	public String addAnimal(@ModelAttribute("animalNuevo") Animal animalNuevo, BindingResult bidingresult) {
 		alumnoDAO.insertarAlumnoJPA(alumnoNew);
 		return "redirect:/alumnos";
 	}
