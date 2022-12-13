@@ -28,45 +28,48 @@ public class ExplotacionController {
 	private ExplotacionRepo explotacionRepo;
 	AnimalDAO animalDAO = new AnimalDAO();
 	ExplotacionDAO explotacionDAO = new ExplotacionDAO();
+
 	@GetMapping(value = { "", "/" })
 	String explotaciones(Model model) {
-		 	
-		ArrayList<Explotacion> misExplotaciones=(ArrayList<Explotacion>) explotacionRepo.findAll();
-        ArrayList<Animal> misAnimales=(ArrayList<Animal>) animalRepo.findAll();
-        model.addAttribute("listaExplotaciones", misExplotaciones);
-        model.addAttribute("listaAnimales", misAnimales);
+
+		ArrayList<Explotacion> misExplotaciones = (ArrayList<Explotacion>) explotacionRepo.findAll();
+		ArrayList<Animal> misAnimales = (ArrayList<Animal>) animalRepo.findAll();
+		model.addAttribute("listaExplotaciones", misExplotaciones);
+		model.addAttribute("listaAnimales", misAnimales);
 		model.addAttribute("explotacionNueva", new Explotacion());
-		
 
 		return "explotaciones";
 	}
 
 	@PostMapping("/add")
-	public String addExplotacion(@ModelAttribute("explotacionNueva") Explotacion explotacionNueva, BindingResult bidingresult) {
+	public String addExplotacion(@ModelAttribute("explotacionNueva") Explotacion explotacionNueva,
+			BindingResult bidingresult) {
 		explotacionDAO.insertarExplotacionJPA(explotacionNueva);
 		return "redirect:/explotaciones";
 	}
 
 	@GetMapping({ "/{cea}" })
 	String ceaExplotacion(Model model, @PathVariable String cea) {
-		ArrayList<Explotacion> misExplotaciones=(ArrayList<Explotacion>) explotacionRepo.findAll();
-        ArrayList<Animal> misAnimales= (ArrayList<Animal>) animalRepo.findAll();
-       
-        model.addAttribute("listaExplotaciones", misExplotaciones);
-        model.addAttribute("listaAnimales", misAnimales);
+		ArrayList<Explotacion> misExplotaciones = (ArrayList<Explotacion>) explotacionRepo.findAll();
+		ArrayList<Animal> misAnimales = (ArrayList<Animal>) animalRepo.findAll();
+
+		model.addAttribute("listaExplotaciones", misExplotaciones);
+		model.addAttribute("listaAnimales", misAnimales);
 		Explotacion explotacionMostrar = explotacionRepo.findByCea(cea).get();
 		model.addAttribute("explotacionMostrar", explotacionMostrar);
 
 		return "explotacion";
 	}
+
 	@PostMapping("/edit/{cea}")
-	public String editarExplotacion(@PathVariable String cea, @ModelAttribute("explotacionaEditar") Explotacion explotacionEditada,
-			BindingResult bidingresult) {
+	public String editarExplotacion(@PathVariable String cea,
+			@ModelAttribute("explotacionaEditar") Explotacion explotacionEditada, BindingResult bidingresult) {
 		Explotacion explotacionaEditar = explotacionRepo.findByCea(cea).get();
 		explotacionaEditar.setCea(explotacionEditada.getCea());
 		explotacionRepo.save(explotacionaEditar);
 		return "redirect:/explotaciones";
 	}
+
 	@GetMapping({ "/delete/{cea}" })
 	String deleteExplotacion(Model model, @PathVariable String cea) {
 		Explotacion explotacionaBorrar = explotacionRepo.findByCea(cea).get();
