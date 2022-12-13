@@ -49,7 +49,8 @@ public class Explotacion {
 	public Usuario getUsuario() {
 		return usuario;
 	}
-
+	public Explotacion() {
+	}
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
