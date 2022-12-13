@@ -44,6 +44,8 @@ public class Usuario {
 		animales = new HashSet<Animal>();
 		explotaciones = new HashSet<Explotacion>();
 	}
+	public Usuario() {
+	}
 	public String getNombre() {
 		return nombre;
 	}
