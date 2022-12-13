@@ -72,11 +72,11 @@ public class UsuarioController {
 		return "redirect:/usuarios";
 	}
 
-	@GetMapping({ "/delete/{cea}" })
-	String deleteExplotacion(Model model, @PathVariable String cea) {
-		Explotacion explotacionaBorrar = explotacionRepo.findByCea(cea).get();
-		explotacionRepo.delete(explotacionaBorrar);
-		return "redirect:/explotaciones";
+	@GetMapping({ "/delete/{dni}" })
+	String deleteUsuario(Model model, @PathVariable String dni) {
+		Usuario usuarioaBorrar = usuarioRepo.findByDni(dni).get();
+		usuarioRepo.delete(usuarioaBorrar);
+		return "redirect:/usuarios";
 
 	}
 
