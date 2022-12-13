@@ -13,49 +13,52 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import aplicacion.modelo.Animal;
-import aplicacion.persistencia.AlumnoDAO;
 import aplicacion.persistencia.AnimalDAO;
 import aplicacion.persistencia.AnimalRepo;
-
-
 
 @RequestMapping("/animales")
 @Controller
 public class AnimalController {
 	@Autowired
 	private AnimalRepo animalRepo;
-	AnimalDAO animalDAO=new AnimalDAO();
+	AnimalDAO animalDAO = new AnimalDAO();
+
 	@GetMapping(value = { "", "/" })
 	String animales(Model model) {
-		 	
-		ArrayList<Animal> misAnimales=(ArrayList<Animal>) animalRepo.findAll();
-       
-        model.addAttribute("listaAnimales", misAnimales);
+
+		ArrayList<Animal> misAnimales = (ArrayList<Animal>) animalRepo.findAll();
+
+		model.addAttribute("listaAnimales", misAnimales);
 		model.addAttribute("alumnoNuevo", new Animal());
 		return "animales";
 	}
+
 	@PostMapping("/edit/{crotal}")
-	public String editarAnimal(@PathVariable String crotal, @ModelAttribute("animalaEditar") Animal animalEditado, BindingResult bidingresult) {
-		Animal animalaEditar=animalRepo.findByCrotal(crotal).get();
+	public String editarAnimal(@PathVariable String crotal, @ModelAttribute("animalaEditar") Animal animalEditado,
+			BindingResult bidingresult) {
+		Animal animalaEditar = animalRepo.findByCrotal(crotal).get();
 		animalaEditar.setCrotal(animalEditado.getCrotal());
 		animalRepo.save(animalaEditar);
 		return "redirect:/animales";
 	}
+
 	@GetMapping({ "/{crotal}" })
 	String crotalAnimal(Model model, @PathVariable String crotal) {
-		ArrayList<Animal> misAnimales=(ArrayList<Animal>) animalRepo.findAll();
-        model.addAttribute("listaAnimales", misAnimales);
+		ArrayList<Animal> misAnimales = (ArrayList<Animal>) animalRepo.findAll();
+		model.addAttribute("listaAnimales", misAnimales);
 		Animal animalMostrar = animalRepo.findByCrotal(crotal).get();
 		model.addAttribute("animalMostrar", animalMostrar);
 		return "animal";
 	}
+
 	@GetMapping({ "/delete/{crotal}" })
 	String deleteAnimal(Model model, @PathVariable String crotal) {
-		Animal animalaBorrar=animalRepo.findByCrotal(crotal).get();
+		Animal animalaBorrar = animalRepo.findByCrotal(crotal).get();
 		animalRepo.delete(animalaBorrar);
 		return "redirect:/animales";
 
 	}
+
 	@PostMapping("/add")
 	public String addAnimal(@ModelAttribute("animalNuevo") Animal animalNuevo, BindingResult bidingresult) {
 		animalDAO.insertarAnimalJPA(animalNuevo);
