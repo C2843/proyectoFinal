@@ -10,9 +10,9 @@ public class App {
     public static void main( String[] args )
     {
        
-    	 Tablas t = new Tablas();
+    	 //Tablas t = new Tablas();
     	 
-    	 t.crearTablas();
+    	 //t.crearTablas();
     	
     	 SpringApplication.run(App.class, args);
     	  

@@ -22,10 +22,7 @@ public class AnimalDAO {
 		}
 		finally {
 			em.close();
-		}
-		 
-		
-		
+		}	
 	}
 	
 	public void modificarAnimalJPA(Animal animal) {
