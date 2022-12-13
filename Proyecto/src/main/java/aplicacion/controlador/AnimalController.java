@@ -12,10 +12,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import aplicacion.modelo.Alumno;
 import aplicacion.modelo.Animal;
-import aplicacion.modelo.Bocadillo;
-import aplicacion.modelo.Pedido;
+import aplicacion.persistencia.AlumnoDAO;
 import aplicacion.persistencia.AnimalDAO;
 import aplicacion.persistencia.AnimalRepo;
 
@@ -26,7 +24,7 @@ import aplicacion.persistencia.AnimalRepo;
 public class AnimalController {
 	@Autowired
 	private AnimalRepo animalRepo;
-	
+	AnimalDAO animalDAO=new AnimalDAO();
 	@GetMapping(value = { "", "/" })
 	String animales(Model model) {
 		 	
@@ -60,7 +58,7 @@ public class AnimalController {
 	}
 	@PostMapping("/add")
 	public String addAnimal(@ModelAttribute("animalNuevo") Animal animalNuevo, BindingResult bidingresult) {
-		alumnoDAO.insertarAlumnoJPA(alumnoNew);
-		return "redirect:/alumnos";
+		animalDAO.insertarAnimalJPA(animalNuevo);
+		return "redirect:/animales";
 	}
 }
