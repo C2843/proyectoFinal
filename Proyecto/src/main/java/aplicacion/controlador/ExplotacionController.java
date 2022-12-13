@@ -59,36 +59,19 @@ public class ExplotacionController {
 
 		return "explotacion";
 	}
-	@PostMapping("/edit/{id}")
-	public String editarPedido(Model model, @PathVariable Integer id, @ModelAttribute ("pedidoMostrar") Pedido pedidoEditado) {
-		Alumno a=alumnoRepo.findById(pedidoEditado.getAlumno().getId()).get();
-		pedidoEditado.setAlumno(a);
-		Pedido pedidoaEditar=pedidoRepo.findById(id).get();
-		for(Bocadillo b:pedidoaEditar.getBocadillos()) {
-			if(!pedidoEditado.getBocadillos().contains(b)) {
-				b.getPedidos().remove(pedidoaEditar);
-			}
-		}
-		for(Bocadillo b:pedidoEditado.getBocadillos()) {
-			if(!pedidoaEditar.getBocadillos().contains(b)) {
-				b.getPedidos().add(pedidoEditado);
-			}
-		}
-		pedidoEditado.calcularPrecio();
-		pedidoRepo.save(pedidoEditado);
-		return "redirect:/pedidos";
+	@PostMapping("/edit/{cea}")
+	public String editarExplotacion(@PathVariable String cea, @ModelAttribute("explotacionaEditar") Explotacion explotacionEditada,
+			BindingResult bidingresult) {
+		Explotacion explotacionaEditar = explotacionRepo.findByCea(cea).get();
+		explotacionaEditar.setCea(explotacionEditada.getCea());
+		explotacionRepo.save(explotacionaEditar);
+		return "redirect:/explotaciones";
 	}
-	@GetMapping({ "/buscar/{nombre}" })
-	public String obtenerPedido(@PathVariable String nombre) {
-		return "pedido";
-	}
-
-	@GetMapping({ "/delete/{id}" })
-	String deletePedido(Model model, @PathVariable Integer id) {
-		
-		pedidoRepo.deleteById(id);
-
-		return "redirect:/pedidos";
+	@GetMapping({ "/delete/{cea}" })
+	String deleteExplotacion(Model model, @PathVariable String cea) {
+		Explotacion explotacionaBorrar = explotacionRepo.findByCea(cea).get();
+		explotacionRepo.delete(explotacionaBorrar);
+		return "redirect:/explotaciones";
 
 	}
 
