@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -26,7 +27,7 @@ public class Explotacion {
 	private Integer id;
 	@Column(name="cea")
 	private String cea;
-	@Column(name="nAnimales")
+	@Transient
 	private Integer nAnimales;
 	
 	@OneToMany(cascade= {CascadeType.MERGE}, mappedBy="explotacion", fetch = FetchType.EAGER)

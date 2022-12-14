@@ -2,6 +2,8 @@ package aplicacion.modelo;
 
 
 
+
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -22,11 +25,11 @@ public class Animal {
 	private Integer id;
 	@Column(name="crotal")
 	private String crotal;
-	@Column(name="tipoAnimal")
+	@Transient
 	private String tipoAnimal;
 	@Column(name="raza")
 	private String raza;
-	@Column(name="fNacimiento")
+	@Transient
 	private String fNacimiento;
 	@Column(name="genero")
 	private String genero;

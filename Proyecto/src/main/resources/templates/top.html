@@ -6,25 +6,7 @@
 	<!-- Topbar -->
 
 
-	<div class="collapse bg-dark" id="navbarHeader">
-		<div class="container">
-			<div class="row">
-				<div class="col-sm-8 col-md-7 py-4">
-					<h4 class="text-white">¿Qué es?</h4>
-					<p class="text-muted">Aplicación web de gestión de bocadillos sobre Spring, Thymeleaf, MySQL.
-						Proyecto DWES - 2ºDAW</p>
-				</div>
-				<div class="col-sm-4 offset-md-1 py-4">
-					<h4 class="text-white">Contacto</h4>
-					<ul class="list-unstyled">
-						<li><a href="#" class="text-white">Follow on Twitter</a></li>
-						<li><a href="#" class="text-white">Like on Facebook</a></li>
-						<li><a href="#" class="text-white">Email me</a></li>
-					</ul>
-				</div>
-			</div>
-		</div>
-	</div>
+
 	<div class="navbar navbar-dark bg-dark box-shadow">
 		<div class="container d-flex justify-content-between">
 			<a href="/" class="navbar-brand d-flex align-items-center">
@@ -33,13 +15,13 @@
 					<path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
 					<circle cx="12" cy="13" r="4"></circle>
 				</svg>
-				<strong>Bocadillos</strong>
+				<strong>Explotaciones</strong>
 			</a>
 
 
 
 
-			<nav class="navbar navbar-expand  navbar-dark bg-dark box-shadow">
+			<nav class="navbar navbar-expand  navbar-dark bg-dark box-shadow ">
 
 				<!-- Sidebar Toggle (Topbar) -->
 				<button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
@@ -59,36 +41,28 @@
 					<div class="topbar-divider d-none d-sm-block"></div>
 
 					<li class="nav-item dropdown no-arrow">
-						<a class="nav-link dropdown-toggle text-gray-600" href="/alumnos" role="button">
+						<a class="nav-link dropdown-toggle text-gray-600" href="/explotaciones" role="button">
 							<i class="fas fa-calendar-check fa-sm fa-fw mr-3 text-gray-600"></i>
-							Alumnos
+							Explotaciones
 						</a>
 					</li>
 
 					<div class="topbar-divider d-none d-sm-block"></div>
 
 					<li class="nav-item dropdown no-arrow">
-						<a class="nav-link dropdown-toggle text-gray-600" href="/pedidos" role="button">
+						<a class="nav-link dropdown-toggle text-gray-600" href="/animales" role="button">
 							<i class="fas fa-users fa-sm fa-fw mr-3 text-gray-600"></i>
-							Pedidos
+							Animales
 						</a>
 					</li>
 					<div class="topbar-divider d-none d-sm-block"></div>
 
 					<li class="nav-item dropdown no-arrow">
-						<a class="nav-link dropdown-toggle text-gray-600" href="/bocadillos" role="button">
+						<a class="nav-link dropdown-toggle text-gray-600" href="/usuarios" role="button">
 							<i class="fas fa-users fa-sm fa-fw mr-3 text-gray-600"></i>
-							Bocadillos
+							Usuarios
 						</a>
 					</li>
-					<div class="topbar-divider d-none d-sm-block"></div>
-					<li class="nav-item dropdown no-arrow">
-						<a class="nav-link dropdown-toggle text-gray-600" href="/ingredientes" role="button">
-							<i class="fas fa-users fa-sm fa-fw mr-3 text-gray-600"></i>
-							Ingredientes
-						</a>
-					</li>
-
 					<div class="topbar-divider d-none d-sm-block"></div>
 					
 				
@@ -100,7 +74,7 @@
 						<a class="nav-link dropdown-toggle text-gray-900" href="#" id="userDropdown" role="button"
 							data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 							 
-							 	Hola: <span sec:authentication = "principal.username" /> 
+							 	Bienvenido <span sec:authentication = "principal.username" /> 
 						    
 						</a>
 						
@@ -153,10 +127,7 @@
 
 			</nav>
 			<!-- End of Topbar -->
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader"
-				aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
+			
 		</div>
 	</div>
 </div>

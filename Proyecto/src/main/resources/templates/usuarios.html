@@ -1,46 +1,129 @@
 <!DOCTYPE html>
+<!--todo lo q sea link, script, se mete en el head(cosas q no se ven)-->
 
 <head th:insert="librerias::librerias">
 </head>
 
 <body>
-	<div class="container">
-		<header>
-			<div th:insert="top::top"></div>
-		</header>
-		<div class="row pl-5 pr-5">
-			<div class="col-9">
-				<h5> Ficha de alumno </h5>
-				<div class="card border border primary" th:object="${alumnoMostrar}">
-					<div class="card-body row pt-4 pb-4">
-						<div class="col-7">
-							<div class="card">
-								<div class="card-header text-dark bg-light">Ficha del alumno
+<div class="container">
+	<header>
+		<!--menu de arriba, th:Thymeleaf, plantilla html.-->
+		<div th:insert="top::top"></div>
 
-								</div>
-								<div class="card-body">
-									<div class="mb-2">
-										<h5 th:text="*{nombre}" class="mb-2 card-text">Nombre del alumno</h5>
-									</div>
-									<p><a th:href="@{/alumnos}" class="btn btn-primary mt-3">Cerrar</a></p>
-								</div>
-							</div>
-						</div>
-						<div class="col-5">
-							<div class="card">
-								<div class="card-header text-dark bg-light">Pedidos del alumno
-								</div>
-								<div class="card-body">
-									<span th:each="pedido:${alumnoMostrar.pedidos}">
-										<p><a th:text="${pedido.id}" th:href="@{/pedidos/{id}(id=${pedido.id})}" class="card-text"> </a></p>
-									</span>
-								</div>
-							</div>
-						</div>
-					</div>
+	</header>
+	<h1>Usuarios en Spring</h1>
+
+	<!-- imprimir tabla pedidos-->
+
+	<table class="table table-hover">
+		<!--hover(remarca)-->
+		<thead class="table-dark bg-info text-white">
+			<!--bg-info(letra de la tabla...)-->
+			<tr>
+				<!--cabeceras-->
+				<th>DNI</th>
+				<th>Nombre Usuario</th>
+				<th>Explotación</th>
+				<th>Apellidos Usuario</th>
+				<th>Contacto Usuario</th>
+				<th>Email Usuario</th>
+			</tr>
+		</thead>
+		<tbody>
+			<!--empty tengo o no pedidos-->
+			<!--th:if: si mis pedidos tiene o no tiene pedidos, sino imprime NO HAY ALUMNOS-->
+			<!--acceder a un objeto q hemos definido en el controlador ($ nombre del attr del modelo.empty(true(crea el tr)/false(no crea el tr)))-->
+			<tr th:if="${listaUsuarios.Empty}">
+				<td colspan="2"> No hay usuarios </td>
+			</tr>
+			<!--th:each=cada pedido q este en mi variable ListaPedidos(controlador) llamale pedido-->
+			<tr th:each="usuario:${listaUsuarios}">
+				<!--celda-->
+				<td>
+					<!--enlace=yo hago click ID pedido me mande al controlador /pedidos/id-->
+					<!--@: permite decirle que parte de nuestro pedido.controller va recibir esa peticion, de ese click-->
+					<!--$:acceder a una variable dentro de th. id= attr id de objeto pedido-->
+					<a th:href="@{/usuarios/{dni}(dni=${usuario.dni})}" class="btn btn-primary btn-sm">
+						<!--imprimir el id, con etiqueta span. id del pedido(${pedido.id}-->
+						<span th:text="${usuario.dni}"></span>
+					</a>
+
+				</td>
+				<td>
+					<!--imprimir el id, con etiqueta span. acceder nombre del alumno(${alumno.nombre}-->
+					<span th:text="${usuario.getNombre}"></span>
+				</td>
+				<td>
+					<span th:each="explotacion:${usuario.explotaciones}">
+						<span th:text="${explotacion.getCea}">CEA de la explotación
+							<span>, </span>
+						</span>
+					</span>
+				</td>
+				<td>
+					<span th:text="${usuario.getApellidos}">Apellidos</span>
+				</td>
+				<td>
+					<span th:text="${usuario.getnTelefono}">Contacto</span>
+				</td>
+				<td>
+					<span th:text="${usuario.getEmail}">Email</span>
+				</td>
+
+			</tr>
+		</tbody>
+	</table>
+
+	<div class="col-2 float-right">
+		<div class="p-5">
+			<!--primary boton azul-->
+			<button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#crearMensaje">
+				+ </button>
+		</div>
+	</div>
+
+
+	<!--create modal-->
+	<div class="modal fade" id="crearMensaje">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+
+
+				<div class="modal-header">
+					<h4 class="modal-title" id="exampleModalLabel">Crear usuario</h4>
+					<button class="close btn btn-danger" type="button" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">x</span>
+					</button>
 				</div>
+				<div class="modal-body">
+					<p class="error-text">crear usuario nuevo:</p>
+
+
+					<form action="#" th:action="@{/usuarios/add/}" th:object="${usuarioNuevo}" method="post">
+						<div class="form-row">
+							<div class="form-group mt-4">
+								<label for="texto">Seleccionar explotación</label>
+								<select th:field="*{explotaciones}" multiple="true" class="form-control selectpicker"
+									name="explotaciones" id="explotaciones">
+									<option th:each="e:${listaExplotaciones}" th:value="${e.cea}" th:text="${e.cea}"
+										value="">Seleccionar explotaciones</option>
+								</select>
+							</div>
+						</div>
+
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-secondary btn-sm" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+					<input type="submit" value="Crear usuario" class="btn btn-primary float-right" />
+
+
+				</div>
+				</form>
 			</div>
 		</div>
 	</div>
-</body>
+	
+	<!--fin create modal-->
+</div>
+	</body>
 </html>

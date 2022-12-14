@@ -29,7 +29,7 @@ public class AnimalController {
 		ArrayList<Animal> misAnimales = (ArrayList<Animal>) animalRepo.findAll();
 
 		model.addAttribute("listaAnimales", misAnimales);
-		model.addAttribute("alumnoNuevo", new Animal());
+		model.addAttribute("animalNuevo", new Animal());
 		return "animales";
 	}
 
