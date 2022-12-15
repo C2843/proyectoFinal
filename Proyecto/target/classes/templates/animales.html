@@ -1,44 +1,167 @@
 <!DOCTYPE html>
-<html lang="en">
+<!--todo lo q sea link, script, se mete en el head(cosas q no se ven)-->
 
 <head th:insert="librerias::librerias">
-
-  	<meta charset="utf-8">
-  	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-   
-	
-  	<title>Animales</title>
-  
- 
-
-
 </head>
 
-<body id="page-top"><!-- top -->
-        <!-- top -->
-        <!-- top -->
- 		<div th:insert="top::top"></div>
+<body>
 <div class="container">
-        <!-- top -->
-  		<div class="m-5">
-			<nav aria-label="breadcrumb">
-				<ol class="breadcrumb">
-					<li class="breadcrumb-item">
-						<a href="/">
-							<i class="fas fa-home fa-sm fa-fw mr-3 text-gray-600"></i>
-						</a>
-					</li>
-					<li class="breadcrumb-item">Animales</li>
-				</ol>
-			</nav>
+	<header>
+		<!--menu de arriba, th:Thymeleaf, plantilla html.-->
+		<div th:insert="top::top"></div>
+
+	</header>
+	<h1>Animales en Spring</h1>
+
+	<!-- imprimir tabla pedidos-->
+
+	<table class="table table-hover">
+		<!--hover(remarca)-->
+		<thead class="table-dark bg-info text-white">
+			<!--bg-info(letra de la tabla...)-->
+			<tr>
+				<!--cabeceras-->
+				<th>Crotal animal</th>
+				<th>Fecha nacimiento</th>
+				<th>Género</th>
+				<th>Raza</th>
+				<th>Tipo de animal</th>
+			</tr>
+		</thead>
+		<tbody>
+			<!--empty tengo o no pedidos-->
+			<!--th:if: si mis pedidos tiene o no tiene pedidos, sino imprime NO HAY ALUMNOS-->
+			<!--acceder a un objeto q hemos definido en el controlador ($ nombre del attr del modelo.empty(true(crea el tr)/false(no crea el tr)))-->
+			<tr th:if="${listaAnimales.Empty}">
+				<td colspan="2"> No hay animales</td>
+			</tr>
+			<!--th:each=cada pedido q este en mi variable ListaPedidos(controlador) llamale pedido-->
+			<tr th:each="animal:${listaAnimales}">
+				<!--celda-->
+				<td>
+					<!--enlace=yo hago click ID pedido me mande al controlador /pedidos/id-->
+					<!--@: permite decirle que parte de nuestro pedido.controller va recibir esa peticion, de ese click-->
+					<!--$:acceder a una variable dentro de th. id= attr id de objeto pedido-->
+						<!--imprimir el id, con etiqueta span. id del pedido(${pedido.id}-->
+						<span th:text="${animal.crotal}"></span>
+
+				</td>
+				<td>
+					<span th:text="${animal.getfNacimiento}"> </span>
+				</td>
+				<td>
+					<span th:text="${animal.getGenero}"> </span>
+				</td>
+				<td>
+					<span th:text="${animal.getRaza}"> </span>
+				</td>
+				<td>
+					<span th:text="${animal.getTipoAnimal}"> </span>
+				</td>
+			<td> 
+					<a th:attr="data-target='#modal-edit'+${animal.crotal}" data-toggle="modal" data-target="#modal-edit" class="btn btn-primary btn-sm text-white pointer">
+					Modificar
+					</a>
+				</td>
+				<td> 
+					<a th:attr="data-target='#modal-delete'+${animal.crotal}" data-toggle="modal" data-target="#modal-delete" class="btn btn-primary btn-sm text-white pointer">
+					Eliminar
+					</a>
+				</td>
+				<!--edit modal-->
+				<div class="modal fade" th:id="modal-edit+${animal.crotal}">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title" id="exampleModalLabel">Modificar</h4>
+							<button class="close btn btn-danger" type="button" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">x</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<p class="error-text">Introduce el crotal nuevo para el animal:
+							<strong><span th:text="${animal.crotal}"> </span></strong></p>
+							<!--formulario nombre a editar-->
+							<form action="#" th:action="@{/animales/edit/{crotal}(crotal=${animal.crotal})}" th:object="${animalaEditar}" method="post"> 
+								<div class"form-row">
+								<div class="form-group mt-1"> 
+									<label for="texto">Fecha nacimiento</label>
+									<input type="text" th:field="*{fNacimiento}" class="form-control" id="exampleInputEmail" th:attr="placeholder=${animal.crotal}"/>
+								</div>
+								</div>
+								</div>
+								<div class="modal-footer">
+									<button class="btn btn-secondary btn-sm" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+									<input type="submit" value="Modificar" class="btn btn-primary float-right"/>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+				<!-- fin edit modal-->
+				<!--delete modal-->
+				<div class="modal fade" th:id="modal-delete+${animal.crotal}">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title" id="exampleModalLabel">Borrar</h4>
+							<button class="close btn btn-danger" type="button" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">x</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<p class="error-text">Introduce el crotal del animal a borrar:
+							<strong><span th:text="${animal.crotal}"> </span></strong></p>
+								</div>
+								<div class="modal-footer">
+									<button class="btn btn-secondary btn-sm" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+									<a th:href="@{/animal/delete/{crotal}(crotal=${animal.crotal})}"> 
+									<span class="btn btn-danger btn-sm" value="delete">Borrar</span>
+									</a>
+								</div>
+						</div>
+					</div>
+				</div>
+				<!-- fin delete modal-->
+				
+		</tbody>
+	</table>
+		<div class="col-2 float-right">
+			<div class="p-5">
+				<button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#crearMensaje"> + </button>
+				
+			</div>
 		</div>
+				<!--create modal-->
+				<div class="modal fade" id="crearMensaje">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title" id="exampleModalLabel">Crear animal</h4>
+							<button class="close" type="button" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">x</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<p class="error-text">Introduce el crotal del nuevo animal:
+							<!--formulario nombre a editar-->
+							<form action="#" th:action="@{/animales/add/}" th:object="${animalNuevo}" method="post"> 
+								<div class"form-row">
+								<div class="form-group mt-1"> 
+									<label for="texto">Fecha de nacimiento</label>
+									<input type="text" th:field="*{fNacimiento}" class="form-control" id="gheryhrt" placeholder="FechaNacmiento" />
+								</div>
+								</div>
+								</div>
+								<div class="modal-footer">
+									<button class="btn btn-secondary btn-sm" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+									<input type="submit" value="Crear" class="btn btn-primary float-right"/>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+				<!-- fin create modal-->
 </div>
-</body>
-
-
-
-		<!-- Añadir carpeta modal -->
-
-
-
+	</body>
 </html>

@@ -33,11 +33,6 @@ public class Animal {
 	private String fNacimiento;
 	@Column(name="genero")
 	private String genero;
-	
-	@ManyToOne // (cascade = { CascadeType.ALL },optional = true)
-	@JoinColumn(name = "id_usuario", nullable = true)
-	@JsonIgnore
-	private Usuario usuario;
 	@ManyToOne // (cascade = { CascadeType.ALL },optional = true)
 	@JoinColumn(name = "id_explotacion", nullable = true)
 	@JsonIgnore
@@ -53,9 +48,6 @@ public class Animal {
 		this.fNacimiento = fNacimiento;
 		this.genero = genero;
 	}
-	public Animal(Usuario u){
-		usuario=u;
-	}
 	public Animal(Explotacion e){
 		explotacion=e;
 	}
@@ -67,15 +59,6 @@ public class Animal {
 	public void setExplotacion(Explotacion explotacion) {
 		this.explotacion = explotacion;
 	}
-
-	public Usuario getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
-	
 	public Integer getId() {
 		return id;
 	}

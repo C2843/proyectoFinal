@@ -31,8 +31,6 @@ public class Usuario {
 	@Column(name="email")
 	private String email;
 	@OneToMany(cascade= {CascadeType.ALL}, mappedBy="usuario", fetch = FetchType.EAGER)
-	private Set<Animal> animales; 
-	@OneToMany(cascade= {CascadeType.ALL}, mappedBy="usuario", fetch = FetchType.EAGER)
 	private Set<Explotacion> explotaciones;
 	public Usuario(String dni, String nombre, String apellidos, Integer nTelefono, String email) {
 		super();
@@ -41,7 +39,6 @@ public class Usuario {
 		this.apellidos = apellidos;
 		this.nTelefono = nTelefono;
 		this.email = email;
-		animales = new HashSet<Animal>();
 		explotaciones = new HashSet<Explotacion>();
 	}
 	public Usuario() {
@@ -83,13 +80,6 @@ public class Usuario {
 	}
 	public void setEmail(String email) {
 		this.email = email;
-	}
-	public Set<Animal> getAnimales() {
-		return animales;
-	}
-
-	public void setAnimales(Set<Animal> animales) {
-		this.animales = animales;
 	}
 	public Set<Explotacion> getExplotaciones() {
 		return explotaciones;
