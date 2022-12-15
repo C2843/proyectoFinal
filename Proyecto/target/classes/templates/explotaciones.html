@@ -21,8 +21,8 @@
 			<!--bg-info(letra de la tabla...)-->
 			<tr>
 				<!--cabeceras-->
-				<th>CEA</th>
-				<th>Animal</th>
+				<th>CEA explotación</th>
+				<th>Animales</th>
 				<th>Número de animales</th>
 			</tr>
 		</thead>
@@ -47,18 +47,13 @@
 
 				</td>
 				<td>
-					<!--imprimir el id, con etiqueta span. acceder nombre del alumno(${alumno.nombre}-->
-					<span th:text="${explotacion.getCea}"></span>
-				</td>
-				<td>
 					<span th:each="animal:${explotacion.animales}">
-						<span th:text="${animal.getCrotal}">Crotal del animal
-							<span>, </span>
+						<span th:text="${animal.getCrotal}">
 						</span>
 					</span>
 				</td>
 				<td>
-					<span th:text="${explotacion.getnAnimales}">Número de animales</span>
+					<span th:text="${explotacion.getnAnimales()}"> </span>
 				</td>
 			
 			</tr>

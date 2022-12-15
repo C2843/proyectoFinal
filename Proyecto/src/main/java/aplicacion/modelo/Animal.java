@@ -25,11 +25,11 @@ public class Animal {
 	private Integer id;
 	@Column(name="crotal")
 	private String crotal;
-	@Transient
+	@Column(name="tipoanimal")
 	private String tipoAnimal;
 	@Column(name="raza")
 	private String raza;
-	@Transient
+	@Column(name="fnacimiento")
 	private String fNacimiento;
 	@Column(name="genero")
 	private String genero;

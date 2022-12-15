@@ -46,7 +46,9 @@
 					<a th:href="@{/usuarios/{dni}(dni=${usuario.dni})}" class="btn btn-primary btn-sm">
 						<!--imprimir el id, con etiqueta span. id del pedido(${pedido.id}-->
 						<span th:text="${usuario.dni}"></span>
+						
 					</a>
+          
 
 				</td>
 				<td>
@@ -54,20 +56,21 @@
 					<span th:text="${usuario.getNombre}"></span>
 				</td>
 				<td>
-					<span th:each="explotacion:${usuario.explotaciones}">
-						<span th:text="${explotacion.getCea}">CEA de la explotación
-							<span>, </span>
+				<a th:href="@{/explotaciones}" class="btn btn-primary my-2">
+				<span th:each="explotacion:${usuario.explotaciones}">
+						<span th:text="${explotacion.getCea}">	
 						</span>
-					</span>
+				</a>
+					
 				</td>
 				<td>
-					<span th:text="${usuario.getApellidos}">Apellidos</span>
+					<span th:text="${usuario.getApellidos}"></span>
 				</td>
 				<td>
-					<span th:text="${usuario.getnTelefono}">Contacto</span>
+					<span th:text="${usuario.getnTelefono}"></span>
 				</td>
 				<td>
-					<span th:text="${usuario.getEmail}">Email</span>
+					<span th:text="${usuario.getEmail}"></span>
 				</td>
 
 			</tr>
@@ -97,8 +100,6 @@
 				</div>
 				<div class="modal-body">
 					<p class="error-text">crear usuario nuevo:</p>
-
-
 					<form action="#" th:action="@{/usuarios/add/}" th:object="${usuarioNuevo}" method="post">
 						<div class="form-row">
 							<div class="form-group mt-4">

@@ -27,7 +27,7 @@ public class Explotacion {
 	private Integer id;
 	@Column(name="cea")
 	private String cea;
-	@Transient
+	@Column(name="nanimales")
 	private Integer nAnimales;
 	
 	@OneToMany(cascade= {CascadeType.MERGE}, mappedBy="explotacion", fetch = FetchType.EAGER)
@@ -39,7 +39,7 @@ public class Explotacion {
 	private Usuario usuario;
 	
 	public Explotacion(String cea, Integer nAnimales) {
-		super();
+		
 		this.cea = cea;
 		this.nAnimales = nAnimales;
 		animales = new HashSet<Animal>();
