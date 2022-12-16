@@ -25,6 +25,8 @@
 				<th>Género</th>
 				<th>Raza</th>
 				<th>Tipo de animal</th>
+				<th>Modificar </th>
+				<th>Eliminar </th>
 			</tr>
 		</thead>
 		<tbody>
@@ -78,24 +80,21 @@
 							</button>
 						</div>
 						<div class="modal-body">
-							<p class="error-text">Introduce la fecha de nacimiento para el animal
+							<p class="error-text">Introduce los datos a modificar del animal con crotal
 							<strong><span th:text="${animal.crotal}"> </span></strong></p>
-							<!--formulario nombre a editar-->
+							
 							<form action="#" th:action="@{/animales/edit/{crotal}(crotal=${animal.crotal})}" th:object="${animalaEditar}" method="post"> 
 								<div class"form-row">
 								<div class="form-group mt-1"> 
 									<label for="texto">Fecha nacimiento</label>
-									<input type="text" :field="*{fNacimiento}" class="form-control" id="exampleInputEmail" th:attr="placeholder=${animal.fNacimiento}"/>
+									<input type="text" field="*{fNacimiento}" class="form-control" id="exampleInputEmail" th:attr="placeholder=${animal.fNacimiento}"/>
 								</div>
 								</div>
-								<p class="error-text">Introduce la raza para el animal
-							<strong><span th:text="${animal.crotal}"> </span></strong></p>
-							<!--formulario nombre a editar-->
 							<form action="#" th:action="@{/animales/edit/{crotal}(crotal=${animal.crotal})}" th:object="${animalaEditar}" method="post"> 
 								<div class"form-row">
 								<div class="form-group mt-1"> 
 									<label for="texto">Raza</label>
-									<input type="text" :field="*{raza}" class="form-control" id="exampleInputEmail" th:attr="placeholder=${animal.raza}"/>
+									<input type="text" field="*{raza}" class="form-control" id="exampleInputEmail" th:attr="placeholder=${animal.raza}"/>
 								</div>
 								</div>
 								</div>
@@ -119,12 +118,12 @@
 							</button>
 						</div>
 						<div class="modal-body">
-							<p class="error-text">Introduce el crotal del animal a borrar:
-							<strong><span th:text="${animal.crotal}"> </span></strong></p>
+							<p class="error-text">¿Estás seguro que deseas borrar el animal con crotal
+							<strong><span th:text="${animal.crotal}"> </span></strong> ?</p>
 								</div>
 								<div class="modal-footer">
 									<button class="btn btn-secondary btn-sm" data-dismiss="modal" aria-hidden="true">Cancelar</button>
-									<a th:href="@{/animal/delete/{crotal}(crotal=${animal.crotal})}"> 
+									<a th:href="@{/animales/delete/{crotal}(crotal=${animal.crotal})}"> 
 									<span class="btn btn-danger btn-sm" value="delete">Borrar</span>
 									</a>
 								</div>
@@ -152,13 +151,40 @@
 							</button>
 						</div>
 						<div class="modal-body">
-							<p class="error-text">Introduce el crotal del nuevo animal:
-							<!--formulario nombre a editar-->
+							<p class="error-text">Introduce los datos del nuevo animal:
 							<form action="#" th:action="@{/animales/add/}" th:object="${animalNuevo}" method="post"> 
 								<div class"form-row">
 								<div class="form-group mt-1"> 
+									<label for="texto">Crotal</label>
+									<input type="text" th:field="*{crotal}" class="form-control" id="crotal" placeholder="Crotal" />
+								</div>
+								</div>
+								<form action="#" th:action="@{/animales/add/}" th:object="${animalNuevo}" method="post"> 
+								<div class"form-row">
+								<div class="form-group mt-1"> 
 									<label for="texto">Fecha de nacimiento</label>
-									<input type="text" th:field="*{fNacimiento}" class="form-control" id="gheryhrt" placeholder="FechaNacmiento" />
+									<input type="text" th:field="*{fNacimiento}" class="form-control" id="fNacimiento" placeholder="Fecha de nacimiento" />
+								</div>
+								</div>
+								<form action="#" th:action="@{/animales/add/}" th:object="${animalNuevo}" method="post"> 
+								<div class"form-row">
+								<div class="form-group mt-1"> 
+									<label for="texto">Género</label>
+									<input type="text" th:field="*{genero}" class="form-control" id="genero" placeholder="Género" />
+								</div>
+								</div>
+								<form action="#" th:action="@{/animales/add/}" th:object="${animalNuevo}" method="post"> 
+								<div class"form-row">
+								<div class="form-group mt-1"> 
+									<label for="texto">Raza</label>
+									<input type="text" th:field="*{raza}" class="form-control" id="raza" placeholder="Raza" />
+								</div>
+								</div>
+								<form action="#" th:action="@{/animales/add/}" th:object="${animalNuevo}" method="post"> 
+								<div class"form-row">
+								<div class="form-group mt-1"> 
+									<label for="texto">Tipo de animal</label>
+									<input type="text" th:field="*{tipoAnimal}" class="form-control" id="tipoAnimal" placeholder="Tipo de animal" />
 								</div>
 								</div>
 								</div>
