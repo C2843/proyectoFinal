@@ -170,7 +170,7 @@
 								<div class="form-row">
 									<div class="form-group mt-4">
 										<label for="texto">Seleccionar usuario</label>
-										<select th:field="*{usuarios}" multiple="true" class="form-control selectpicker"
+										<select th:field="*{usuario}" multiple="true" class="form-control selectpicker"
 											name="usuarios" id="usuarios">
 											<option th:each="u:${listaUsuarios}" th:value="${u.dni}" th:text="${u.id}"
 											value="">Seleccionar usuario</option>
