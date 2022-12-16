@@ -83,18 +83,17 @@
 							<p class="error-text">Introduce los datos a modificar del animal con crotal
 							<strong><span th:text="${animal.crotal}"> </span></strong></p>
 							
-							<form action="#" th:action="@{/animales/edit/{crotal}(crotal=${animal.crotal})}" th:object="${animalaEditar}" method="post"> 
+							<form action="#" th:action="@{/animales/edit/{crotal}(crotal=${animal.crotal})}" th:object="${animalEditado}" method="post"> 
 								<div class"form-row">
 								<div class="form-group mt-1"> 
 									<label for="texto">Fecha nacimiento</label>
-									<input type="text" field="*{fNacimiento}" class="form-control" id="exampleInputEmail" th:attr="placeholder=${animal.fNacimiento}"/>
+									<input type="text" th:field="*{fNacimiento}" class="form-control" id="exampleInputEmail" th:attr="placeholder=${animal.fNacimiento}"/>
 								</div>
 								</div>
-							<form action="#" th:action="@{/animales/edit/{crotal}(crotal=${animal.crotal})}" th:object="${animalaEditar}" method="post"> 
 								<div class"form-row">
 								<div class="form-group mt-1"> 
 									<label for="texto">Raza</label>
-									<input type="text" field="*{raza}" class="form-control" id="exampleInputEmail" th:attr="placeholder=${animal.raza}"/>
+									<input type="text" th:field="*{raza}" class="form-control" id="exampleInputEmail" th:attr="placeholder=${animal.raza}"/>
 								</div>
 								</div>
 								</div>

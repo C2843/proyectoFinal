@@ -30,14 +30,16 @@ public class AnimalController {
 
 		model.addAttribute("listaAnimales", misAnimales);
 		model.addAttribute("animalNuevo", new Animal());
+		model.addAttribute("animalEditado", new Animal());
 		return "animales";
 	}
 
 	@PostMapping("/edit/{crotal}")
-	public String editarAnimal(@PathVariable String crotal, @ModelAttribute("animalaEditar") Animal animalEditado,
+	public String editarAnimal(@PathVariable String crotal, @ModelAttribute("animalEditado") Animal animalEditado,
 			BindingResult bidingresult) {
 		Animal animalaEditar = animalRepo.findByCrotal(crotal).get();
-		animalaEditar.setCrotal(animalEditado.getCrotal());
+		animalaEditar.setfNacimiento(animalEditado.getfNacimiento());
+		animalaEditar.setRaza(animalEditado.getRaza());
 		animalRepo.save(animalaEditar);
 		return "redirect:/animales";
 	}
