@@ -37,7 +37,7 @@ public class ExplotacionController {
 		model.addAttribute("listaExplotaciones", misExplotaciones);
 		model.addAttribute("listaAnimales", misAnimales);
 		model.addAttribute("explotacionNueva", new Explotacion());
-
+		model.addAttribute("explotacionEditada", new Explotacion());
 		return "explotaciones";
 	}
 
@@ -63,9 +63,9 @@ public class ExplotacionController {
 
 	@PostMapping("/edit/{cea}")
 	public String editarExplotacion(@PathVariable String cea,
-			@ModelAttribute("explotacionaEditar") Explotacion explotacionEditada, BindingResult bidingresult) {
+			@ModelAttribute("explotacionEditada") Explotacion explotacionEditada, BindingResult bidingresult) {
 		Explotacion explotacionaEditar = explotacionRepo.findByCea(cea).get();
-		explotacionaEditar.setCea(explotacionEditada.getCea());
+		explotacionaEditar.setnAnimales(explotacionEditada.getnAnimales());
 		explotacionRepo.save(explotacionaEditar);
 		return "redirect:/explotaciones";
 	}

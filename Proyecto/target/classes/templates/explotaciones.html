@@ -24,6 +24,8 @@
 				<th>CEA explotación</th>
 				<th>Animales</th>
 				<th>Número de animales</th>
+				<th>Modificar</th>
+				<th>Eliminar</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -55,61 +57,136 @@
 				<td>
 					<span th:text="${explotacion.getnAnimales()}"> </span>
 				</td>
-			
-			</tr>
+				<td> 
+					<a th:attr="data-target='#modal-edit'+${explotacion.cea}" data-toggle="modal" data-target="#modal-edit" class="btn btn-primary btn-sm text-white pointer">
+					Modificar
+					</a>
+				</td>
+				<td> 
+					<a th:attr="data-target='#modal-delete'+${explotacion.cea}" data-toggle="modal" data-target="#modal-delete" class="btn btn-primary btn-sm text-white pointer">
+					Eliminar
+					</a>
+				</td>
+				<!--edit modal-->
+				<div class="modal fade" th:id="modal-edit+${explotacion.cea}">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title" id="exampleModalLabel">Modificar</h4>
+							<button class="close btn btn-danger" type="button" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">x</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<p class="error-text">Introduce los datos a modificar de la explotacion con CEA
+							<strong><span th:text="${explotacion.cea}"> </span></strong></p>
+							
+							<form action="#" th:action="@{/explotaciones/edit/{cea}(cea=${explotacion.cea})}" th:object="${explotacionEditada}" method="post"> 
+								<div class"form-row">
+								<div class="form-group mt-1"> 
+									<label for="texto">Número de animales</label>
+									<input type="text" th:field="*{nAnimales}" class="form-control" id="exampleInputEmail" th:attr="placeholder=${explotacion.nAnimales}"/>
+								</div>
+								</div>
+		
+								</div>
+								<div class="modal-footer">
+									<button class="btn btn-secondary btn-sm" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+									<input type="submit" value="Modificar" class="btn btn-primary float-right"/>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+				<!-- fin edit modal-->
+				<!--delete modal-->
+				<div class="modal fade" th:id="modal-delete+${explotacion.cea}">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title" id="exampleModalLabel">Borrar</h4>
+							<button class="close btn btn-danger" type="button" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">x</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<p class="error-text">¿Estás seguro que deseas borrar la explotacion con CEA
+							<strong><span th:text="${explotacion.cea}"> </span></strong> ?</p>
+								</div>
+								<div class="modal-footer">
+									<button class="btn btn-secondary btn-sm" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+									<a th:href="@{/explotaciones/delete/{cea}(cea=${explotacion.cea})}"> 
+									<span class="btn btn-danger btn-sm" value="delete">Borrar</span>
+									</a>
+								</div>
+						</div>
+					</div>
+				</div>
+				<!-- fin delete modal-->
+				
 		</tbody>
 	</table>
-
-	<div class="col-2 float-right">
-		<div class="p-5">
-			<!--primary boton azul-->
-			<button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#crearMensaje">
-				+ </button>
-		</div>
-	</div>
-
-
-	<!--create modal-->
-	<div class="modal fade" id="crearMensaje">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-
-
-				<div class="modal-header">
-					<h4 class="modal-title" id="exampleModalLabel">Crear explotación</h4>
-					<button class="close btn btn-danger" type="button" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">x</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<p class="error-text">Crear explotación nueva:</p>
-
-
-					<form action="#" th:action="@{/explotacion/add/}" th:object="${explotacionNueva}" method="post">
-						<div class="form-row">
-							<div class="form-group mt-4">
-								<label for="texto">Seleccionar animal</label>
-								<select th:field="*{animales}" multiple="true" class="form-control selectpicker"
-									name="animales" id="animales">
-									<option th:each="a:${listaAnimales}" th:value="${a.crotal}" th:text="${a.crotal}"
-										value="">Seleccionar animales</option>
-								</select>
-							</div>
-						</div>
-
-				</div>
-				<div class="modal-footer">
-					<button class="btn btn-secondary btn-sm" data-dismiss="modal" aria-hidden="true">Cancelar</button>
-					<input type="submit" value="Crear explotacion" class="btn btn-primary float-right" />
-
-
-				</div>
-				</form>
+		<div class="col-2 float-right">
+			<div class="p-5">
+				<button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#crearMensaje"> + </button>
+				
 			</div>
 		</div>
-	</div>
-	
-	<!--fin create modal-->
+				<!--create modal-->
+				<div class="modal fade" id="crearMensaje">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title" id="exampleModalLabel">Crear explotación</h4>
+							<button class="close" type="button" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">x</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<p class="error-text">Introduce los datos de la nueva explotación:
+							<form action="#" th:action="@{/explotaciones/add/}" th:object="${explotacionNueva}" method="post"> 
+								<div class"form-row">
+								<div class="form-group mt-1"> 
+									<label for="texto">CEA</label>
+									<input type="text" th:field="*{cea}" class="form-control" id="cea" placeholder="CEA" />
+								</div>
+								</div>
+								<div class="form-row">
+									<div class="form-group mt-4">
+										<label for="texto">Seleccionar animales</label>
+										<select th:field="*{animales}" multiple="true" class="form-control selectpicker"
+											name="animales" id="animales">
+											<option th:each="a:${listaAnimales}" th:value="${a.crotal}" th:text="${a.crotal}"
+											value="">Seleccionar animales</option>
+										</select>
+									</div>
+								</div>
+								<div class"form-row">
+								<div class="form-group mt-1"> 
+									<label for="texto">Número de animales</label>
+									<input type="text" th:field="*{nAnimales}" class="form-control" id="nAnimales" placeholder="Número de animales" />
+								</div>
+								</div>
+								<div class="form-row">
+									<div class="form-group mt-4">
+										<label for="texto">Seleccionar usuario</label>
+										<select th:field="*{usuarios}" multiple="true" class="form-control selectpicker"
+											name="usuarios" id="usuarios">
+											<option th:each="u:${listaUsuarios}" th:value="${u.dni}" th:text="${u.id}"
+											value="">Seleccionar usuario</option>
+										</select>
+									</div>
+								</div>
+								</div>
+								<div class="modal-footer">
+									<button class="btn btn-secondary btn-sm" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+									<input type="submit" value="Crear" class="btn btn-primary float-right"/>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+				<!-- fin create modal-->
 </div>
 	</body>
 </html>
