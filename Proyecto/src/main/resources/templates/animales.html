@@ -3,7 +3,6 @@
 
 <head th:insert="librerias::librerias">
 </head>
-
 <body>
 <div class="container">
 	<header>
@@ -79,14 +78,24 @@
 							</button>
 						</div>
 						<div class="modal-body">
-							<p class="error-text">Introduce el crotal nuevo para el animal:
+							<p class="error-text">Introduce la fecha de nacimiento para el animal
 							<strong><span th:text="${animal.crotal}"> </span></strong></p>
 							<!--formulario nombre a editar-->
 							<form action="#" th:action="@{/animales/edit/{crotal}(crotal=${animal.crotal})}" th:object="${animalaEditar}" method="post"> 
 								<div class"form-row">
 								<div class="form-group mt-1"> 
 									<label for="texto">Fecha nacimiento</label>
-									<input type="text" th:field="*{fNacimiento}" class="form-control" id="exampleInputEmail" th:attr="placeholder=${animal.crotal}"/>
+									<input type="text" :field="*{fNacimiento}" class="form-control" id="exampleInputEmail" th:attr="placeholder=${animal.fNacimiento}"/>
+								</div>
+								</div>
+								<p class="error-text">Introduce la raza para el animal
+							<strong><span th:text="${animal.crotal}"> </span></strong></p>
+							<!--formulario nombre a editar-->
+							<form action="#" th:action="@{/animales/edit/{crotal}(crotal=${animal.crotal})}" th:object="${animalaEditar}" method="post"> 
+								<div class"form-row">
+								<div class="form-group mt-1"> 
+									<label for="texto">Raza</label>
+									<input type="text" :field="*{raza}" class="form-control" id="exampleInputEmail" th:attr="placeholder=${animal.raza}"/>
 								</div>
 								</div>
 								</div>
