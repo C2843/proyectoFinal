@@ -39,7 +39,8 @@ public class UsuarioController {
 		model.addAttribute("listaUsuarios", misUsuarios);
 		model.addAttribute("listaExplotaciones", misExplotaciones);
 		model.addAttribute("usuarioNuevo", new Usuario());
-
+		model.addAttribute("usuarioEditado", new Usuario());
+		model.addAttribute("usuarioMostrar", new Usuario());
 		return "usuarios";
 	}
 
@@ -54,7 +55,6 @@ public class UsuarioController {
 	String dniUsuario(Model model, @PathVariable String dni) {
 		ArrayList<Usuario> misUsuarios = (ArrayList<Usuario>) usuarioRepo.findAll();
 		ArrayList<Explotacion> misExplotaciones = (ArrayList<Explotacion>) explotacionRepo.findAll();
-
 		model.addAttribute("listaUsuarios", misUsuarios);
 		model.addAttribute("listaExplotaciones", misExplotaciones);
 		Usuario usuarioMostrar = usuarioRepo.findByDni(dni).get();
@@ -67,7 +67,10 @@ public class UsuarioController {
 	public String editarUsuario(@PathVariable String dni,
 			@ModelAttribute("usuarioaEditar") Usuario usuarioEditado, BindingResult bidingresult) {
 		Usuario usuarioaEditar = usuarioRepo.findByDni(dni).get();
-		usuarioaEditar.setDni(usuarioEditado.getDni());
+		usuarioaEditar.setNombre(usuarioEditado.getNombre());
+		usuarioaEditar.setApellidos(usuarioEditado.getApellidos());
+		usuarioaEditar.setnTelefono(usuarioEditado.getnTelefono());
+		usuarioaEditar.setEmail(usuarioEditado.getEmail());
 		usuarioRepo.save(usuarioaEditar);
 		return "redirect:/usuarios";
 	}
@@ -81,4 +84,3 @@ public class UsuarioController {
 	}
 
 }
-

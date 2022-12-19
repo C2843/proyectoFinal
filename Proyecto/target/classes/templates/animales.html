@@ -1,25 +1,23 @@
 <!DOCTYPE html>
-<!--todo lo q sea link, script, se mete en el head(cosas q no se ven)-->
 
 <head th:insert="librerias::librerias">
 </head>
 <body>
-<div class="container">
-	<header>
-		<!--menu de arriba, th:Thymeleaf, plantilla html.-->
+<header>
 		<div th:insert="top::top"></div>
 
 	</header>
-	<h1>Animales en Spring</h1>
+<div class="container">
+	<br>
+	<br>
+	<br>
+	<br>
+	<h1>Animales</h1>
 
-	<!-- imprimir tabla pedidos-->
 
-	<table class="table table-hover">
-		<!--hover(remarca)-->
+	<table class="table table-dark table-striped">
 		<thead class="table-dark bg-info text-white">
-			<!--bg-info(letra de la tabla...)-->
 			<tr>
-				<!--cabeceras-->
 				<th>Crotal animal</th>
 				<th>Fecha nacimiento</th>
 				<th>Género</th>
@@ -30,20 +28,13 @@
 			</tr>
 		</thead>
 		<tbody>
-			<!--empty tengo o no pedidos-->
-			<!--th:if: si mis pedidos tiene o no tiene pedidos, sino imprime NO HAY ALUMNOS-->
-			<!--acceder a un objeto q hemos definido en el controlador ($ nombre del attr del modelo.empty(true(crea el tr)/false(no crea el tr)))-->
 			<tr th:if="${listaAnimales.Empty}">
 				<td colspan="2"> No hay animales</td>
 			</tr>
-			<!--th:each=cada pedido q este en mi variable ListaPedidos(controlador) llamale pedido-->
+			
 			<tr th:each="animal:${listaAnimales}">
-				<!--celda-->
+				
 				<td>
-					<!--enlace=yo hago click ID pedido me mande al controlador /pedidos/id-->
-					<!--@: permite decirle que parte de nuestro pedido.controller va recibir esa peticion, de ese click-->
-					<!--$:acceder a una variable dentro de th. id= attr id de objeto pedido-->
-						<!--imprimir el id, con etiqueta span. id del pedido(${pedido.id}-->
 						<span th:text="${animal.crotal}"></span>
 
 				</td>
@@ -60,12 +51,12 @@
 					<span th:text="${animal.getTipoAnimal}"> </span>
 				</td>
 			<td> 
-					<a th:attr="data-target='#modal-edit'+${animal.crotal}" data-toggle="modal" data-target="#modal-edit" class="btn btn-primary btn-sm text-white pointer">
+					<a th:attr="data-target='#modal-edit'+${animal.crotal}" data-toggle="modal" data-target="#modal-edit" class="btn btn-dark btn-sm text-white pointer">
 					Modificar
 					</a>
 				</td>
 				<td> 
-					<a th:attr="data-target='#modal-delete'+${animal.crotal}" data-toggle="modal" data-target="#modal-delete" class="btn btn-primary btn-sm text-white pointer">
+					<a th:attr="data-target='#modal-delete'+${animal.crotal}" data-toggle="modal" data-target="#modal-delete" class="btn btn-dark btn-sm text-white pointer">
 					Eliminar
 					</a>
 				</td>
@@ -99,7 +90,7 @@
 								</div>
 								<div class="modal-footer">
 									<button class="btn btn-secondary btn-sm" data-dismiss="modal" aria-hidden="true">Cancelar</button>
-									<input type="submit" value="Modificar" class="btn btn-primary float-right"/>
+									<input type="submit" value="Modificar" class="btn btn-dark float-right"/>
 								</div>
 							</form>
 						</div>
@@ -135,7 +126,7 @@
 	</table>
 		<div class="col-2 float-right">
 			<div class="p-5">
-				<button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#crearMensaje"> + </button>
+				<button type="button" class="btn btn-dark float-right" data-toggle="modal" data-target="#crearMensaje"> + </button>
 				
 			</div>
 		</div>
@@ -189,7 +180,7 @@
 								</div>
 								<div class="modal-footer">
 									<button class="btn btn-secondary btn-sm" data-dismiss="modal" aria-hidden="true">Cancelar</button>
-									<input type="submit" value="Crear" class="btn btn-primary float-right"/>
+									<input type="submit" value="Crear" class="btn btn-dark float-right"/>
 								</div>
 							</form>
 						</div>

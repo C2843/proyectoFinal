@@ -1,69 +1,56 @@
 <!DOCTYPE html>
-<!--todo lo q sea link, script, se mete en el head(cosas q no se ven)-->
 
 <head th:insert="librerias::librerias">
 </head>
 
 <body>
-<div class="container">
-	<header>
-		<!--menu de arriba, th:Thymeleaf, plantilla html.-->
+<header>
 		<div th:insert="top::top"></div>
 
 	</header>
-	<h1>Explotaciones en Spring</h1>
+<div class="container">
+	<br>
+	<br>
+	<br>
+	<br>
+	<h1>Explotaciones </h1>
 
 	<!-- imprimir tabla pedidos-->
 
-	<table class="table table-hover">
-		<!--hover(remarca)-->
+	<table class="table table-dark table-striped">
+
 		<thead class="table-dark bg-info text-white">
-			<!--bg-info(letra de la tabla...)-->
 			<tr>
-				<!--cabeceras-->
 				<th>CEA explotación</th>
-				<th>Animales</th>
 				<th>Número de animales</th>
 				<th>Modificar</th>
 				<th>Eliminar</th>
 			</tr>
 		</thead>
 		<tbody>
-			<!--empty tengo o no pedidos-->
-			<!--th:if: si mis pedidos tiene o no tiene pedidos, sino imprime NO HAY ALUMNOS-->
-			<!--acceder a un objeto q hemos definido en el controlador ($ nombre del attr del modelo.empty(true(crea el tr)/false(no crea el tr)))-->
 			<tr th:if="${listaExplotaciones.Empty}">
 				<td colspan="2"> No hay explotaciones </td>
 			</tr>
-			<!--th:each=cada pedido q este en mi variable ListaPedidos(controlador) llamale pedido-->
 			<tr th:each="explotacion:${listaExplotaciones}">
-				<!--celda-->
+				
 				<td>
-					<!--enlace=yo hago click ID pedido me mande al controlador /pedidos/id-->
-					<!--@: permite decirle que parte de nuestro pedido.controller va recibir esa peticion, de ese click-->
-					<!--$:acceder a una variable dentro de th. id= attr id de objeto pedido-->
-					<a th:href="@{/explotaciones/{cea}(cea=${explotacion.cea})}" class="btn btn-primary btn-sm">
-						<!--imprimir el id, con etiqueta span. id del pedido(${pedido.id}-->
+					
+					<a th:href="@{/explotaciones/{cea}(cea=${explotacion.cea})}" class="btn btn-dark btn-sm">
+						
 						<span th:text="${explotacion.cea}"></span>
 					</a>
 
 				</td>
 				<td>
-					<span th:each="animal:${explotacion.animales}">
-						<span th:text="${animal.getCrotal}">
-						</span>
-					</span>
-				</td>
-				<td>
 					<span th:text="${explotacion.getnAnimales()}"> </span>
 				</td>
 				<td> 
-					<a th:attr="data-target='#modal-edit'+${explotacion.cea}" data-toggle="modal" data-target="#modal-edit" class="btn btn-primary btn-sm text-white pointer">
+					<a th:attr="data-target='#modal-edit'+${explotacion.cea}" data-toggle="modal" data-target="#modal-edit" class="btn btn-dark btn-sm text-white pointer">
 					Modificar
 					</a>
 				</td>
 				<td> 
-					<a th:attr="data-target='#modal-delete'+${explotacion.cea}" data-toggle="modal" data-target="#modal-delete" class="btn btn-primary btn-sm text-white pointer">
+					<a th:attr="data-target='#modal-delete'+${explotacion.cea}" data-toggle="modal" data-target="#modal-delete" class="btn btn-dark btn-sm text-white pointer">
 					Eliminar
 					</a>
 				</td>
@@ -92,7 +79,7 @@
 								</div>
 								<div class="modal-footer">
 									<button class="btn btn-secondary btn-sm" data-dismiss="modal" aria-hidden="true">Cancelar</button>
-									<input type="submit" value="Modificar" class="btn btn-primary float-right"/>
+									<input type="submit" value="Modificar" class="btn btn-dark float-right"/>
 								</div>
 							</form>
 						</div>
@@ -128,7 +115,7 @@
 	</table>
 		<div class="col-2 float-right">
 			<div class="p-5">
-				<button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#crearMensaje"> + </button>
+				<button type="button" class="btn btn-darkfloat-right" data-toggle="modal" data-target="#crearMensaje"> + </button>
 				
 			</div>
 		</div>
@@ -151,16 +138,6 @@
 									<input type="text" th:field="*{cea}" class="form-control" id="cea" placeholder="CEA" />
 								</div>
 								</div>
-								<div class="form-row">
-									<div class="form-group mt-4">
-										<label for="texto">Seleccionar animales</label>
-										<select th:field="*{animales}" multiple="true" class="form-control selectpicker"
-											name="animales" id="animales">
-											<option th:each="a:${listaAnimales}" th:value="${a.crotal}" th:text="${a.crotal}"
-											value="">Seleccionar animales</option>
-										</select>
-									</div>
-								</div>
 								<div class"form-row">
 								<div class="form-group mt-1"> 
 									<label for="texto">Número de animales</label>
@@ -180,7 +157,7 @@
 								</div>
 								<div class="modal-footer">
 									<button class="btn btn-secondary btn-sm" data-dismiss="modal" aria-hidden="true">Cancelar</button>
-									<input type="submit" value="Crear" class="btn btn-primary float-right"/>
+									<input type="submit" value="Crear" class="btn btn-dark float-right"/>
 								</div>
 							</form>
 						</div>

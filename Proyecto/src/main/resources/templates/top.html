@@ -1,133 +1,30 @@
 <div th:fragment="top">
-	<!-- Topbar -->
-	<!-- Topbar -->
-	<!-- Topbar -->
-	<!-- Topbar -->
-	<!-- Topbar -->
+	<div class="container">
+<header class="p-3 text-bg-dark">
+    <div class="container">
+      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+        <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+          <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg>
+        </a>
 
+        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+          <li><a href="/" class="nav-link px-2 text-secondary">Inicio</a></li>
+          <li><a href="/usuarios" class="nav-link px-2 text-white">Usuarios</a></li>
+          <li><a href="/explotaciones" class="nav-link px-2 text-white">Explotaciones</a></li>
+          <li><a href="/animales" class="nav-link px-2 text-white">Animales</a></li>
+          <li><a href="#" class="nav-link px-2 text-white">About</a></li>
+        </ul>
 
+        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+          <input type="search" class="form-control form-control-dark text-bg-dark" placeholder="Search..." aria-label="Search">
+        </form>
 
-	<div class="navbar navbar-dark bg-dark box-shadow">
-		<div class="container d-flex justify-content-between">
-			<a href="/" class="navbar-brand d-flex align-items-center">
-				<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-					stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
-					<path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
-					<circle cx="12" cy="13" r="4"></circle>
-				</svg>
-				<strong>Explotaciones</strong>
-			</a>
-
-
-
-
-			<nav class="navbar navbar-expand  navbar-dark bg-dark box-shadow ">
-
-				<!-- Sidebar Toggle (Topbar) -->
-				<button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-					<i class="fa fa-bars"></i>
-				</button>
-
-				<!-- Topbar Navbar -->
-				<ul class="navbar-nav ml-auto">
-
-					<li class="nav-item dropdown no-arrow">
-						<a class="nav-link dropdown-toggle text-gray-600" href="/" role="button">
-							<i class="fas fa-home fa-sm fa-fw mr-3 text-gray-600"></i>
-							Inicio
-						</a>
-					</li>
-
-					<div class="topbar-divider d-none d-sm-block"></div>
-
-					<li class="nav-item dropdown no-arrow">
-						<a class="nav-link dropdown-toggle text-gray-600" href="/explotaciones" role="button">
-							<i class="fas fa-calendar-check fa-sm fa-fw mr-3 text-gray-600"></i>
-							Explotaciones
-						</a>
-					</li>
-
-					<div class="topbar-divider d-none d-sm-block"></div>
-
-					<li class="nav-item dropdown no-arrow">
-						<a class="nav-link dropdown-toggle text-gray-600" href="/animales" role="button">
-							<i class="fas fa-users fa-sm fa-fw mr-3 text-gray-600"></i>
-							Animales
-						</a>
-					</li>
-					<div class="topbar-divider d-none d-sm-block"></div>
-
-					<li class="nav-item dropdown no-arrow">
-						<a class="nav-link dropdown-toggle text-gray-600" href="/usuarios" role="button">
-							<i class="fas fa-users fa-sm fa-fw mr-3 text-gray-600"></i>
-							Usuarios
-						</a>
-					</li>
-					<div class="topbar-divider d-none d-sm-block"></div>
-					
-				
-
-					<!-- Nav Item - User Information -->
-
-					<li sec:authorize="isAuthenticated()" class="nav-item dropdown text-gray-900">
-						
-						<a class="nav-link dropdown-toggle text-gray-900" href="#" id="userDropdown" role="button"
-							data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							 
-							 	Bienvenido <span sec:authentication = "principal.username" /> 
-						    
-						</a>
-						
-						<!-- Dropdown - User Information -->
-						<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-							aria-labelledby="userDropdown">
-							<a class="dropdown-item" href="/seguridad/password">
-								<i class="fas fa-lock fa-sm fa-fw mr-3 text-gray-600"></i>
-								Contraseña
-							</a>
-
-							<a class="dropdown-item" href="/voluntariado/setEmail">
-								<i class="fas fa-address-card fa-sm fa-fw mr-3 text-gray-600"></i>
-								Configurar datos contacto
-							</a>
-							<div class="dropdown-divider"></div>
-							<div sec:authorize="hasAuthority('ROLE_USER')">
-								<a class="dropdown-item" href="/seguridad/panel">
-									<i class="fas fa-cog fa-sm fa-fw mr-3 text-gray-600"></i>
-									Configuración User
-								</a>
-								<div class="dropdown-divider"></div>
-							</div>
-							<div sec:authorize="hasAuthority('ROLE_ADMIN')">
-								<a class="dropdown-item" href="/seguridad/panel">
-									<i class="fas fa-cog fa-sm fa-fw mr-3 text-gray-600"></i>
-									Configuración Admin
-								</a>
-								<div class="dropdown-divider"></div>
-							</div>
-							<a   class="dropdown-item" th:href="@{/logout}">
-								<i class="fas fa-sign-out-alt fa-sm fa-fw mr-3 text-gray-600"></i>
-								<span >Cerrar Sesión</span>
-							</a>
-						</div>
-					</li>
-					 
-					<div class="topbar-divider d-none d-sm-block">
-
-						<li sec:authorize="isAnonymous()" class="nav-link  text-gray-600">
-							<a class="btn btn-primary btn-sm  " href="/login">Login</a>
-						</li>
-						<li sec:authorize="isAuthenticated()"class="nav-link  text-gray-600">
-						<form th:action="@{/logout}" method="post">
-							<input class="btn btn-primary btn-sm " type="submit" value="Sign Out" />
-						</form>
-						</li>
-					</div>
-				</ul>
-
-			</nav>
-			<!-- End of Topbar -->
-			
-		</div>
-	</div>
-</div>
+        <div class="text-end">
+          <button type="button" class="btn btn-outline-light me-2">Login</button>
+          <button type="button" class="btn btn-warning">Sign-up</button>
+        </div>
+      </div>
+    </div>
+  </header>
+  
+		</div>	

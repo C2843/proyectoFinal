@@ -1,50 +1,50 @@
 <!DOCTYPE html>
-<!--todo lo q sea link, script, se mete en el head(cosas q no se ven)-->
 
 <head th:insert="librerias::librerias">
 </head>
 
 <body>
-<div class="container">
-	<header>
-		<!--menu de arriba, th:Thymeleaf, plantilla html.-->
-		<div th:insert="top::top"></div>
+<header>
 
+		<div th:insert="top::top"></div>
 	</header>
-	<h1>Usuarios en Spring</h1>
+<div class="container">
+	<br>
+	<br>
+	<br>
+	<br>
+	<h1>Usuarios</h1>
 
 	<!-- imprimir tabla pedidos-->
 
-	<table class="table table-hover">
-		<!--hover(remarca)-->
-		<thead class="table-dark bg-info text-white">
-			<!--bg-info(letra de la tabla...)-->
+	<table class="table table-dark table-striped">
+
+		<thead class="table table-dark table-borderless">
+
 			<tr>
-				<!--cabeceras-->
+				
 				<th>DNI</th>
 				<th>Nombre Usuario</th>
-				<th>Explotación</th>
 				<th>Apellidos Usuario</th>
 				<th>Contacto Usuario</th>
 				<th>Email Usuario</th>
+				<th>Modificar</th>
+				<th>Eliminar</th>
 			</tr>
 		</thead>
+		
 		<tbody>
-			<!--empty tengo o no pedidos-->
-			<!--th:if: si mis pedidos tiene o no tiene pedidos, sino imprime NO HAY ALUMNOS-->
-			<!--acceder a un objeto q hemos definido en el controlador ($ nombre del attr del modelo.empty(true(crea el tr)/false(no crea el tr)))-->
+			
 			<tr th:if="${listaUsuarios.Empty}">
 				<td colspan="2"> No hay usuarios </td>
 			</tr>
-			<!--th:each=cada pedido q este en mi variable ListaPedidos(controlador) llamale pedido-->
+			
 			<tr th:each="usuario:${listaUsuarios}">
-				<!--celda-->
+				
 				<td>
-					<!--enlace=yo hago click ID pedido me mande al controlador /pedidos/id-->
-					<!--@: permite decirle que parte de nuestro pedido.controller va recibir esa peticion, de ese click-->
-					<!--$:acceder a una variable dentro de th. id= attr id de objeto pedido-->
-					<a th:href="@{/usuarios/{dni}(dni=${usuario.dni})}" class="btn btn-primary btn-sm">
-						<!--imprimir el id, con etiqueta span. id del pedido(${pedido.id}-->
+					
+					<a th:href="@{/usuarios/{dni}(dni=${usuario.dni})}" class="btn btn-dark btn-sm">
+					
 						<span th:text="${usuario.dni}"></span>
 						
 					</a>
@@ -52,16 +52,8 @@
 
 				</td>
 				<td>
-					<!--imprimir el id, con etiqueta span. acceder nombre del alumno(${alumno.nombre}-->
-					<span th:text="${usuario.getNombre}"></span>
-				</td>
-				<td>
-				<a th:href="@{/explotaciones}" class="btn btn-primary my-2">
-				<span th:each="explotacion:${usuario.explotaciones}">
-						<span th:text="${explotacion.getCea}">	
-						</span>
-				</a>
 					
+					<span th:text="${usuario.getNombre}"></span>
 				</td>
 				<td>
 					<span th:text="${usuario.getApellidos}"></span>
@@ -72,59 +64,150 @@
 				<td>
 					<span th:text="${usuario.getEmail}"></span>
 				</td>
-
+				<td> 
+					<a th:attr="data-target='#modal-edit'+${usuario.dni}" data-toggle="modal" data-target="#modal-edit" class="btn btn-dark btn-sm text-white pointer">
+					Modificar
+					</a>
+				</td>
+				<td> 
+					<a th:attr="data-target='#modal-delete'+${usuario.dni}" data-toggle="modal" data-target="#modal-delete" class="btn btn-dark btn-sm text-white pointer">
+					Eliminar
+					</a>
+				</td>
+				
+				<!--edit modal-->
+				<div class="modal fade" th:id="modal-edit+${usuario.dni}">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title" id="exampleModalLabel">Modificar</h4>
+							<button class="close btn btn-danger" type="button" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">x</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<p class="error-text">Introduce los datos a modificar del usuario con DNI
+							<strong><span th:text="${usuario.dni}"> </span></strong></p>
+							
+							<form action="#" th:action="@{/usuarios/edit/{dni}(dni=${usuario.dni})}" th:object="${usuarioEditado}" method="post"> 
+								<div class"form-row">
+								<div class="form-group mt-1"> 
+									<label for="texto">Nombre usuario</label>
+									<input type="text" th:field="*{nombre}" class="form-control" id="exampleInputEmail" th:attr="placeholder=${usuario.nombre}"/>
+								</div>
+								</div>
+								<div class"form-row">
+								<div class="form-group mt-1"> 
+									<label for="texto">Apellidos usuario</label>
+									<input type="text" th:field="*{apellidos}" class="form-control" id="exampleInputEmail" th:attr="placeholder=${usuario.apellidos}"/>
+								</div>
+								</div>
+								<div class"form-row">
+								<div class="form-group mt-1"> 
+									<label for="texto">Contacto usuario</label>
+									<input type="text" th:field="*{nTelefono}" class="form-control" id="exampleInputEmail" th:attr="placeholder=${usuario.nTelefono}"/>
+								</div>
+								</div>
+								<div class"form-row">
+								<div class="form-group mt-1"> 
+									<label for="texto">Email usuario</label>
+									<input type="text" th:field="*{email}" class="form-control" id="exampleInputEmail" th:attr="placeholder=${usuario.email}"/>
+								</div>
+								</div>
+								</div>
+								<div class="modal-footer">
+									<button class="btn btn-secondary btn-sm" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+									<input type="submit" value="Modificar" class="btn btn-dark float-right"/>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+				<!-- fin edit modal-->
+				<!--delete modal-->
+				<div class="modal fade" th:id="modal-delete+${usuario.dni}">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title" id="exampleModalLabel">Borrar</h4>
+							<button class="close btn btn-danger" type="button" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">x</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<p class="error-text">¿Estás seguro que deseas borrar el usuario con DNI
+							<strong><span th:text="${usuario.dni}"> </span></strong> ?</p>
+								</div>
+								<div class="modal-footer">
+									<button class="btn btn-secondary btn-sm" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+									<a th:href="@{/usuarios/delete/{dni}(dni=${usuario.dni})}"> 
+									<span class="btn btn-danger btn-sm" value="delete">Borrar</span>
+									</a>
+								</div>
+						</div>
+					</div>
+				</div>
+				<!-- fin delete modal-->
 			</tr>
 		</tbody>
 	</table>
 
 	<div class="col-2 float-right">
 		<div class="p-5">
-			<!--primary boton azul-->
-			<button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#crearMensaje">
+			<button type="button" class="btn btn-dark float-right" data-toggle="modal" data-target="#crearMensaje">
 				+ </button>
 		</div>
 	</div>
 
 
 	<!--create modal-->
-	<div class="modal fade" id="crearMensaje">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-
-
-				<div class="modal-header">
-					<h4 class="modal-title" id="exampleModalLabel">Crear usuario</h4>
-					<button class="close btn btn-danger" type="button" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">x</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<p class="error-text">crear usuario nuevo:</p>
-					<form action="#" th:action="@{/usuarios/add/}" th:object="${usuarioNuevo}" method="post">
-						<div class="form-row">
-							<div class="form-group mt-4">
-								<label for="texto">Seleccionar explotación</label>
-								<select th:field="*{explotaciones}" multiple="true" class="form-control selectpicker"
-									name="explotaciones" id="explotaciones">
-									<option th:each="e:${listaExplotaciones}" th:value="${e.cea}" th:text="${e.cea}"
-										value="">Seleccionar explotaciones</option>
-								</select>
-							</div>
+				<div class="modal fade" id="crearMensaje">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title" id="exampleModalLabel">Crear usuario</h4>
+							<button class="close" type="button" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">x</span>
+							</button>
 						</div>
-
+						<div class="modal-body">
+							<p class="error-text">Introduce los datos del nuevo usuario:
+							<form action="#" th:action="@{/usuarios/add/}" th:object="${usuarioNuevo}" method="post"> 
+								<div class"form-row">
+								<div class="form-group mt-1"> 
+									<label for="texto">DNI</label>
+									<input type="text" th:field="*{dni}" class="form-control" id="dni" placeholder="DNI" />
+								</div>
+								</div>
+								<div class"form-row">
+								<div class="form-group mt-1"> 
+									<label for="texto">Nombre usuario</label>
+									<input type="text" th:field="*{nombre}" class="form-control" id="nombre" placeholder="Nombre usuario" />
+								</div>
+								<div class"form-row">
+								<div class="form-group mt-1"> 
+									<label for="texto">Apellidos usuario</label>
+									<input type="text" th:field="*{apellidos}" class="form-control" id="apellidos" placeholder="Apellidos usuario" />
+								</div>
+								<div class"form-row">
+								<div class="form-group mt-1"> 
+									<label for="texto">Contacto usuario</label>
+									<input type="text" th:field="*{nTelefono}" class="form-control" id="contacto" placeholder="Contacto usuario" />
+								</div>
+								<div class"form-row">
+								<div class="form-group mt-1"> 
+									<label for="texto">Email usuario</label>
+									<input type="text" th:field="*{email}" class="form-control" id="email" placeholder="Email usuario" />
+								</div>
+								<div class="modal-footer">
+									<button class="btn btn-secondary btn-sm" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+									<input type="submit" value="Crear" class="btn btn-dark float-right"/>
+								</div>
+							</form>
+						</div>
+					</div>
 				</div>
-				<div class="modal-footer">
-					<button class="btn btn-secondary btn-sm" data-dismiss="modal" aria-hidden="true">Cancelar</button>
-					<input type="submit" value="Crear usuario" class="btn btn-primary float-right" />
-
-
-				</div>
-				</form>
-			</div>
-		</div>
-	</div>
-	
-	<!--fin create modal-->
+				<!-- fin create modal-->
 </div>
 	</body>
 </html>
