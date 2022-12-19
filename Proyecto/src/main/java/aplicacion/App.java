@@ -9,7 +9,6 @@ import aplicacion.persistencia.Tablas;
 public class App {
     public static void main( String[] args )
     {
-       
     	 //Tablas t = new Tablas();
     	 
     	 //t.crearTablas();
